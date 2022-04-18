@@ -22,7 +22,7 @@ fn main() {
     }
 
     let mut oscillator = WavetableOscillator::new(48_000, wavetable); 
-    oscillator.set_frequency(440.);
+    oscillator.set_frequency(55.);
 
     let (_stream, stream_handle) = OutputStream::try_default().unwrap();
 

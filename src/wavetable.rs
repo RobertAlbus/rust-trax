@@ -47,9 +47,9 @@ impl Iterator for WavetableOscillator {
     fn next(&mut self) -> Option<f32> {
         Some(self.get_sample())
     }
-    }
+}
 
-    impl Source for WavetableOscillator {
+impl Source for WavetableOscillator {
     fn channels(&self) -> u16 {
         1
     }
