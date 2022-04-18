@@ -1,11 +1,14 @@
 // https://youtu.be/v0Qp7eWVyes?t=723
 #![allow(dead_code)]
+#![allow(unused_imports)]
 
 use std::time::Duration;
-
 use rodio::{OutputStream, Source};
 mod wavetable;
 use wavetable::WavetableOscillator;
+
+mod wave_shape;
+use wave_shape::{bit_crush, square};
 
 
 fn main() {
@@ -26,34 +29,4 @@ fn main() {
     let _result = stream_handle.play_raw(oscillator.convert_samples());
 
     std::thread::sleep(Duration::from_secs(5));
-}
-
-fn square(sample: f32) -> f32 {
-    pwm(0.)(sample)
-}
-
-fn rect(sample: f32) -> f32 {
-    pwm(0.8)(sample)
-}
-
-fn pwm(threshold: f32) -> Box<dyn Fn(f32)->f32> {
-    Box::new(move |sample| {
-        let width = f32::from(threshold);
-        if sample > width {
-            1_f32
-        } else {
-            -1_f32
-        }
-    })
-
-}
-
-fn bit_crush(bits: f32) -> Box<dyn Fn(f32)->f32> {
-    Box::new(move |sample: f32| {
-        let mut sample = (sample + 2.) / 2.;
-        sample = (sample * bits).floor() / (bits -1.);
-        sample = sample * 2. - 2.;
-        
-        sample
-    })
 }
