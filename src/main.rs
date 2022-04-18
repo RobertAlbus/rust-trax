@@ -13,6 +13,7 @@ use wave_shape::{bit_crush, square, pure, something};
 mod generate;
 use generate::sin;
 
+mod visualize;
 
 fn main() {
     let sample_rate = 48_000;
@@ -20,9 +21,10 @@ fn main() {
     let freq = 40.;
     let shape_fn = pure;
     let shape_fn: Option<Box<dyn Fn(f32)->f32>> = Some(Box::new(shape_fn));
-    let wavetable_size = 1048;
+    let wavetable_size = 2048;
 
-    let wavetable = generate::saw(wavetable_size, shape_fn);
+    let wavetable = generate::sin(wavetable_size, shape_fn);
+    visualize::png(&wavetable, "wave.png");
 
     let mut oscillator = WavetableOscillator::new(sample_rate, wavetable); 
     oscillator.set_frequency(freq);

@@ -8,3 +8,4 @@ edition = "2021"
 
 [dependencies]
 rodio = "0.15.0"
+audio-visualizer = "0.3.1"
