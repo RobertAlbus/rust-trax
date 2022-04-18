@@ -23,11 +23,12 @@ pub fn saw(
 
   let shape_fn = get_shape_fn(shape_fn);
   let increment = 2. / wavetable_size as f32;
+  let mut accumulator = -1.0;
 
   let mut wavetable: Vec<f32> = Vec::with_capacity(wavetable_size);
-  for n in 0..wavetable_size {
-    let sample = increment * n as f32;
-    wavetable.push(shape_fn(sample));
+  for _ in 0..wavetable_size {
+    wavetable.push(shape_fn(accumulator));
+    accumulator += increment;
   }
   
   wavetable
