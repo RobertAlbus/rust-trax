@@ -1,3 +1,7 @@
+pub fn pure(sample: f32) -> f32 {
+  sample
+}
+
 pub fn square(sample: f32) -> f32 {
   pwm(0.)(sample)
 }
