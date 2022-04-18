@@ -8,14 +8,14 @@ mod wavetable;
 use wavetable::WavetableOscillator;
 
 mod wave_shape;
-use wave_shape::{bit_crush, square, pure};
+use wave_shape::{bit_crush, square, pure, something};
 
 
 fn main() {
     let sample_rate = 48_000;
     let playback_duration = Duration::from_secs(10);
     let freq = 40.;
-    let shape_fn = pure;
+    let shape_fn = something;
     let wavetable_size = 1048;
 
     let mut wavetable: Vec<f32> = Vec::with_capacity(wavetable_size);

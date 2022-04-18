@@ -31,3 +31,17 @@ pub fn bit_crush(bits: f32) -> Box<dyn Fn(f32)->f32> {
       sample
   })
 }
+
+pub fn something(sample: f32) -> f32 {
+  let sign = sample.signum();
+  let mut sample = sample.abs();
+  
+  if sample < 0.55 && sample > 0.5 {
+    sample = sample * sign * -1.;
+  } else {
+    sample = sample * sign 
+  }
+
+  sample
+}
+
