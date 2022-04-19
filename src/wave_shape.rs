@@ -44,9 +44,9 @@ pub fn pwm(threshold: f32) -> Box<dyn Fn(f32)->f32> {
 
 pub fn bit_crush(bits: f32) -> Box<dyn Fn(f32)->f32> {
   Box::new(move |sample: f32| {
-      let mut sample = (sample + 2.) / 2.;
+      let mut sample = (sample / 2.) + 0.5;
       sample = (sample * bits).floor() / (bits -1.);
-      sample = sample * 2. - 2.;
+      sample = (sample * 2.) - 1.;
       
       sample
   })
