@@ -57,7 +57,7 @@ pub fn something(sample: f32) -> f32 {
   let mut sample = sample.abs();
   
   if sample < 0.75 && sample > 0.5 {
-    sample = sample * sign * -1.;
+    sample = sample * sign * -0.7;
   } else {
     sample = sample * sign 
   }
