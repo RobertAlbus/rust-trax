@@ -18,6 +18,20 @@ pub fn gain(gain: f32) -> Box<dyn Fn(f32)->f32> {
   })
 }
 
+pub fn clip(threshold: f32) -> Box<dyn Fn(f32)->f32> {
+  Box::new(move |sample| {
+    let sign = sample.signum();
+    let sample = sample.abs();
+
+    let threshold = f32::from(threshold);
+    if sample > threshold {
+      threshold * sign
+    } else {
+      sample * sign
+    }
+  })
+}
+
 pub fn pure(sample: f32) -> f32 {
   sample
 }
