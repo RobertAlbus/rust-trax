@@ -8,7 +8,7 @@ mod wavetable;
 use wavetable::WavetableOscillator;
 
 mod wave_shape;
-use wave_shape::{bit_crush, square, pure, something, shape, gain};
+use wave_shape::{bit_crush, square, pure, something, shape, gain, clip};
 
 mod generate;
 use generate::sin;
@@ -22,11 +22,17 @@ fn main() {
     let wavetable_size = 2048;
     
     let mut wavetable = generate::sin(wavetable_size);
-    shape(&mut wavetable, vec![
-        Box::new(something), 
-        Box::new(bit_crush(4.)), 
-        Box::new(gain(0.5)), 
-    ]);
+
+    for _ in 0..10000 {
+        shape(&mut wavetable, vec![
+            gain(1.1), 
+            clip(0.95),
+            bit_crush(22.),
+            ]
+        );
+    }
+
+    shape(&mut wavetable, vec![gain(0.1)]);
 
     visualize::png(&wavetable, "wave.png");
 
