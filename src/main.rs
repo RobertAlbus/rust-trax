@@ -15,6 +15,9 @@ use wave_shape::{bit_crush, clip, gain, pure, shape, something, square};
 mod generate;
 use generate::sin;
 
+mod stream_adapter;
+use stream_adapter::StreamAdapter;
+
 mod visualize;
 
 fn main() {
@@ -35,9 +38,14 @@ fn main() {
     let mut oscillator = WavetableOscillator::new(sample_rate, wavetable);
     oscillator.set_frequency(freq);
 
+    // STREAM ADAPTER
+    let mut stream_adapter = StreamAdapter::new(sample_rate);
+    let mut osc_box: Box<dyn Source<Item = f32>> = Box::new(oscillator);
+    stream_adapter.add_source(&mut osc_box);
+
     let (_stream, stream_handle) = OutputStream::try_default().unwrap();
 
-    let _result = stream_handle.play_raw(oscillator.convert_samples());
+    let _result = stream_handle.play_raw(stream_adapter.convert_samples());
 
     let stdout = Term::buffered_stdout();
     'program_loop: loop {
@@ -47,4 +55,6 @@ fn main() {
             }
         }
     }
+    drop(stream_handle);
+    drop(_stream);
 }
