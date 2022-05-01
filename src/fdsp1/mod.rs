@@ -37,8 +37,8 @@ where
 
     // Pulse wave.
     let c = lfo(|t| {
-        let pitch = 110.0;
-        let duty = lerp11(0.01, 0.99, sin_hz(0.05, t));
+        let duty = lerp11(0.01, 0.1, sin_hz(0.2, t));
+        let pitch = lerp11(110., 220.0, sin_hz(27.5, t));
         (pitch, duty)
     }) >> pulse();
 
@@ -60,7 +60,8 @@ where
 
     //let c = c & c >> feedback(butterpass_hz(1000.0) >> delay(1.0) * 0.5);
 
-    let c = (c | lfo(|t| (xerp11(110.0, 11000.0, sin_hz(0.15, t)), 0.6))) >> moog();
+    // DISABLE THE FILTER FROM THE EXAMPLE
+    //let c = (c | lfo(|t| (xerp11(110.0, 11000.0, sin_hz(0.15, t)), 0.6))) >> moog();
 
     let c = c >> split::<U2>();
 
