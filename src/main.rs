@@ -24,11 +24,16 @@ fn main() {
 
     let mut wavetable = generate::sin(wavetable_size);
 
-    for _ in 0..10000 {
-        shape(&mut wavetable, vec![gain(1.1), clip(0.95), bit_crush(22.)]);
+    for _ in 0..1 {
+        shape(&mut wavetable, vec![
+            // gain(1.1), 
+            clip(0.55),
+            // bit_crush(22.),
+            ]
+        );
     }
 
-    shape(&mut wavetable, vec![gain(0.1)]);
+    // shape(&mut wavetable, vec![gain(0.1)]);
 
     visualize::png(&wavetable, "wave.png");
 
