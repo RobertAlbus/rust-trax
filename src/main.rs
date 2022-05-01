@@ -1,5 +1,6 @@
 mod wavetable;
+mod fdsp1;
 
 fn main() {
-    wavetable::main();
+    fdsp1::main();
 }
