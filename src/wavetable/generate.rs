@@ -1,5 +1,3 @@
-use crate::wave_shape::pure;
-
 pub fn sin(wavetable_size: usize) -> Vec<f32> {
 
   let mut wavetable: Vec<f32> = Vec::with_capacity(wavetable_size);
